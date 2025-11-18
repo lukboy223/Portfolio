@@ -7,9 +7,11 @@
 .serif {
   font-family: 'Oranienbaum', serif;
 }
-
 .sans {
   font-family: 'Quicksand', sans-serif;
+}
+.mono {
+  font-family: monospace;
 }
 .line:before {
   content: '';
@@ -26,4 +28,14 @@
   height: 3px;
   background-color: #ca0130;
   top: -3px;
+}
+
+.lineBlockBottom::before {
+  content: '';
+  position: absolute;
+  width: 69.5em;
+  height: 3px;
+  background-color: #ca0130;
+  top: 0;
+  left: 120em;
 }
