@@ -55,6 +55,14 @@
                     quae!</p>
                 <a href="" target="_blank" class="serif text-3xl px-6 py-2 bg-[#CA0130]">View</a>
             </li>
+            <li>
+                <h3 class="text-3xl serif">Project name</h3>
+                <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni, soluta
+                    velit suscipit
+                    porro sint aliquam ad sunt facilis placeat quo, sapiente impedit illo unde, sit voluptate obcaecati
+                    quae!</p>
+                <a href="" target="_blank" class="serif text-3xl px-6 py-2 bg-[#CA0130]">View</a>
+            </li>
         </ul>
     </div>
 </template>
