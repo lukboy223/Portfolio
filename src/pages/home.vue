@@ -1,0 +1,62 @@
+<script setup>
+
+</script>
+
+<template>
+    <div id="contentBG" class="absolute h-full w-full -z-10">
+        <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] 
+        2xl:top-[60em] 2xl:left-[-17em] 
+        xl:top-[40em] xl:left-[-17em]
+        lg:top-[30em] lg:left-[-17em]
+        top-[60em] left-[-17em] 
+        " id="rotated blue block top (left)">
+        </div>
+        <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[250em] left-[-15em] 
+            2xl:top-[30em] xl:top-0 top-[-20em] lineBlock
+            before:left-[24.3em]" id="rotated blue block top (right)">
+        </div>
+        <div class="absolute bg-[#00B5A9] w-full h-[150em] right-0 
+        xl:top-[100em] lg:top-[90em] md:top-[70em] top-[50em]" id="blue block bottom">
+        </div>
+        <div class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line 
+            top-[35em] md:left-[-120em] left-[-170em]
+            2xl:before:left-[175.9em] xl:before:left-[149.7em] lg:before:left-[132.3em] before:left-[131.4em]"
+            id="line">
+        </div>
+
+
+
+    </div>
+    <div class="w-full" id="title">
+        <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">Luka van Ekeren</h1>
+    </div>
+    <div id="about"
+        class="right-0 absolute md:w-[30em] w-full top-[38em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[22em] 3xl:w-[40em] text-right text-white p-10">
+        <h2 class="serif text-5xl mb-5 leading-6">About me <br><span class="text-xl">in short</span></h2>
+        <p class="sans text-xl mb-5">Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/"
+                class="underline" target="_blank">MBO
+                Utrecht</a> learning to
+            become software
+            developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
+                class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer. As of
+            now I specialize in web development and like to challenge myself with difficult front-end designs and
+            complicated back-end problems.
+        </p>
+        <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">Read more</router-link>
+    </div>
+    <div id="projects" class="absolute text-white top-[80em] left-0 p-10">
+        <h2 class="serif text-5xl mb-10 w-[5em]">Highlighted projects</h2>
+        <ul>
+            <li>
+                <h3 class="text-3xl serif">Project name</h3>
+                <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni, soluta
+                    velit suscipit
+                    porro sint aliquam ad sunt facilis placeat quo, sapiente impedit illo unde, sit voluptate obcaecati
+                    quae!</p>
+                <a href="" target="_blank" class="serif text-3xl px-6 py-2 bg-[#CA0130]">View</a>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<style scoped></style>

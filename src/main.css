@@ -1,1 +1,29 @@
 @import 'tailwindcss';
+
+@theme {
+  --breakpoint-3xl: 126rem;
+}
+
+.serif {
+  font-family: 'Oranienbaum', serif;
+}
+
+.sans {
+  font-family: 'Quicksand', sans-serif;
+}
+.line:before {
+  content: '';
+  position: absolute;
+  width: 120em;
+  height: 3px;
+  background-color: #ca0130;
+  top: 0em;
+}
+.lineBlock::before {
+  content: '';
+  position: absolute;
+  width: 40em;
+  height: 3px;
+  background-color: #ca0130;
+  top: -3px;
+}
