@@ -3,28 +3,31 @@
 </script>
 
 <template>
-    <div id="contentBG" class="absolute h-full w-full -z-10">
-        <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] 
-        2xl:top-[60em] 2xl:left-[-17em] 
-        xl:top-[40em] xl:left-[-17em]
-        lg:top-[30em] lg:left-[-17em]
-        top-[60em] left-[-17em] 
-        " id="rotated blue block top (left)">
+    <div id="contentBG" class="absolute h-[170em] overflow-hidden w-full ">
+        <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] -z-10
+            2xl:top-[60em] 2xl:left-[-17em] 
+            xl:top-[40em] xl:left-[-17em]
+            lg:top-[30em] lg:left-[-17em]
+            top-[60em] left-[-17em] 
+            " id="rotated blue block top (left)">
         </div>
-        <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[250em] left-[-15em] 
+        <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[250em] left-[-15em] -z-10
             2xl:top-[30em] xl:top-0 top-[-20em] lineBlock
             before:left-[24.3em]" id="rotated blue block top (right)">
         </div>
-        <div class="absolute bg-[#00B5A9] w-full h-[100em] right-0 
+        <div class="absolute bg-[#00B5A9] w-full h-[100em] right-0 -z-10
         xl:top-[100em] lg:top-[90em] md:top-[70em] top-[50em]" id="blue block bottom">
         </div>
-        <div class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line 
+        <div class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line z-[-7]
             top-[35em] md:left-[-120em] left-[-170em]
             2xl:before:left-[175.9em] xl:before:left-[149.7em] lg:before:left-[132.3em] before:left-[131.4em]"
             id="line">
         </div>
         <div id="rotated red block bottom"
-            class="absolute bg-[#CA0130] rotate-[-35deg] h-[100em] w-[120em] left-[-20em] top-[150em] lineBlockBottom">
+            class="absolute bg-[#CA0130] rotate-[-35deg] h-[100em] w-[120em] 2xl:left-[-20em] 2xl:top-[150em] xl:top-[120em] xl:left-[-30em] lg:top-[100em] lg:left-[-40em] md:top-[120em] md:left-[-50em] top-[160em] left-[-70em] lineBlockBottom z-[-8]">
+        </div>
+        <div id="line bottom" class="absolute w-[100em] rotate-[-35deg] h-[3px] bg-[#00B5A9] z-[-7]
+            top-[150em] left-[40em] lineBottom before:left-[40.4em]">
         </div>
     </div>
     <div class="w-full" id="title">
@@ -38,7 +41,8 @@
                 Utrecht</a> learning to
             become software
             developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
-                class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer. As of
+                class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer. As
+            of
             now I specialize in web development and like to challenge myself with difficult front-end designs and
             complicated back-end problems.
         </p>
@@ -51,7 +55,8 @@
             <li class="mb-20 lg:ml-[10em] relative w-[30em]">
                 <div class="unset w-3/4">
                     <h3 class="text-3xl serif">Project name</h3>
-                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni, soluta
+                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
+                        soluta
                         velit suscipit</p>
                 </div>
                 <a href="" target="_blank"
@@ -60,7 +65,8 @@
             <li class="mb-20 lg:ml-[3em] relative w-[30em]">
                 <div class="unset w-3/4">
                     <h3 class="text-3xl serif">Project name</h3>
-                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni, soluta
+                    <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
+                        soluta
                         velit suscipit</p>
                 </div>
                 <a href="" target="_blank"
@@ -68,7 +74,7 @@
             </li>
         </ul>
     </div>
-    <div id="symbol art" class="mono w-[110em] absolute text-[#CA0130] font-bold">
+    <div id="symbol art" class="mono w-[1435px] absolute text-[#CA0130] font-black top-[104em] right-[-20em] z-[-9]">
         ##((///////(((((##%%%%%%###%&&&@&&&&&%%%%%%%%#(/*********,...
         ..,,*(%%%%%%%%%%%%%%&%%%###((((((((((((((###%%%%&%%%#####((/*******,,,,,,,,,,,,,*,,,......,,.,,,,,,,,**/(((((((((((////////**,,......,,,**
         ///////(/////(#%%%%%%%%%###%&&@@@@&&%%%%%%%##(//***/////***,,.,,,,*(#%%%%%%%%%%%%%%%%%###((((/((((((((((##%%%%%%%###(((((////////**,,,,,,*****,,,.......,,,,,,,,...,,,****//////((((////(//*,,..,,,,,,**
@@ -131,6 +137,12 @@
         %%%(((((##%%%&%&%@@@@&&@@@&%&&@&#%&&@&@@@@@@@@@@@&&&%&&%%&&&&&&&@@@@@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@@@@@@@@@@@@@&%############%%%%%%##(//**/(#%%%%%%%(//**/((#####((//************/////********/////((
         &@@&&@&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&@&%&%&%&@@&@@@@@@@@@@@@@@@@@&@@@@@@@@@@@@@@@@@@@@@&&@@@@@@@@@@@&%%%%%##################%%%%%#(//***/(########//***/(#%%%%%#((/////****,,*********************//
         @@@@@@@@@@@@@@@&%&&%%&&&#&&&&&&%&@@&&&&&&%&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%#((#((#%%%%%%%%%%%%%%%###################%%%#(//***//(##((((((/***//(#%%%%%#(///////////******,,,,,,*************
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
     </div>
 </template>
 

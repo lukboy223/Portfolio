@@ -17,8 +17,19 @@
   content: '';
   position: absolute;
   width: 120em;
-  height: 3px;
-  background-color: #ca0130;
+  height: 100px;
+  border-bottom: 3.5px solid #ca0130;
+  background: radial-gradient(circle, #00b5a9 70%, #ffffff00);
+  top: -97px;
+  border-top-left-radius: 15em;
+}
+.lineBottom:before {
+  content: '';
+  position: absolute;
+  width: 60em;
+  height: 600px;
+  border-top: 3.5px solid #ca0130;
+  background-color: #00b5a9;
   top: 0em;
 }
 .lineBlock::before {
@@ -33,9 +44,10 @@
 .lineBlockBottom::before {
   content: '';
   position: absolute;
-  width: 69.5em;
-  height: 3px;
-  background-color: #ca0130;
-  top: 0;
-  left: 120em;
+  width: 80.5em;
+  height: 620px;
+  border-bottom: 3.5px solid #ca0130;
+  background-color: #00b5a9;
+  top: -616.5px;
+  left: 109em;
 }
