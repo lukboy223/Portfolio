@@ -44,10 +44,11 @@
 .lineBlockBottom::before {
   content: '';
   position: absolute;
-  width: 80.5em;
-  height: 620px;
+  width: 120em;
   border-bottom: 3.5px solid #ca0130;
   background-color: #00b5a9;
-  top: -616.5px;
-  left: 109em;
+  left: 70em;
+}
+.clipper {
+  clip-path: inset(-200px 0 0);
 }
