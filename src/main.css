@@ -2,6 +2,7 @@
 
 @theme {
   --breakpoint-3xl: 126rem;
+  --breakpoint-4xl: 2600px;
 }
 
 .serif {
@@ -17,17 +18,16 @@
   content: '';
   position: absolute;
   width: 120em;
-  height: 100px;
+  height: 400px;
   border-bottom: 3.5px solid #ca0130;
-  background: radial-gradient(circle, #00b5a9 70%, #ffffff00);
-  top: -97px;
-  border-top-left-radius: 15em;
+  background: linear-gradient(0.75turn, #00b5a9 60%, #ffffff00 40%);
+  top: -397px;
 }
 .lineBottom:before {
   content: '';
   position: absolute;
-  width: 60em;
-  height: 600px;
+  width: 100em;
+  height: 700px;
   border-top: 3.5px solid #ca0130;
   background-color: #00b5a9;
   top: 0em;
