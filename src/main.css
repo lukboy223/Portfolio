@@ -17,7 +17,6 @@
 .line:before {
   content: '';
   position: absolute;
-  width: 120em;
   height: 400px;
   border-bottom: 3.5px solid #ca0130;
   background: linear-gradient(0.75turn, #00b5a9 60%, #ffffff00 40%);
@@ -35,7 +34,7 @@
 .lineBlock::before {
   content: '';
   position: absolute;
-  width: 40em;
+  width: 50em;
   height: 3px;
   background-color: #ca0130;
   top: -3px;

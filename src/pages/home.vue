@@ -23,10 +23,10 @@
         <div class="absolute bg-[#00B5A9] w-full md:h-[100em] h-[150em] right-0 -z-10
         xl:top-[100em] lg:top-[90em] md:top-[70em] top-[50em]" id="blue block bottom">
         </div>
-        <div class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line z-[-7]
+        <div id="line" class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line z-[-7]
             top-[35em] md:left-[-120em] left-[-170em]
             2xl:before:left-[175.9em] xl:before:left-[149.7em] lg:before:left-[132.3em] before:left-[131.4em]
-            3xl:before:left-[167.2em]" id="line">
+            3xl:before:left-[167.2em] before:w-[150em]">
         </div>
         <div id="rotated red block bottom" class="absolute bg-[#CA0130] rotate-[-35deg] h-[100em] w-[120em] 
             3xl:left-[-15em]
@@ -88,6 +88,10 @@
                     </div>
                     <a href="" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
+                </li>
+                <li class="mb-20 lg:mp-[3em] relative max-w-[30em]">
+                    <router-link :to="{ name: 'Projects' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">View all
+                        projects</router-link>
                 </li>
             </ul>
         </div>
