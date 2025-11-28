@@ -5,10 +5,19 @@ import { onMounted, ref } from 'vue';
 const projects = ref(null);
 
 onMounted(() => {
-    axios.get('https://api.github.com/users/lukboy223/repos?sort=updated')
+    axios.get('https://api.github.com/users/lukboy223/repos?sort=pushed')
         .then(Response => (projects.value = Response.data))
         .catch(error => console.error(error))
 });
+
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+    });
+};
 </script>
 
 <template>
@@ -27,7 +36,7 @@ onMounted(() => {
             xl:top-[40em] xl:left-[-17em]
             lg:top-[30em] lg:left-[-17em]
             top-[60em] left-[-17em]
-            md:unset
+            lg:block
             hidden
             " id="rotated blue block top (left)">
         </div>
@@ -41,21 +50,22 @@ onMounted(() => {
             <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">Projects</h1>
         </div>
         <div id="projects"
-            class="absolute text-white left-0 p-10 lg:w-[55em] top-[44em] md:top-[42em] lg:top-[30em] xl:top-[43em] xl:left-[15em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
-            <h2 class="serif text-5xl mb-20 w-[5em] lg:ml-[8em]">Highlighted projects</h2>
-            <ul class="sans text-xl">
-                <li class="mb-20 lg:ml-[10em] relative max-w-[30em]">
-                    <div class="unset w-3/4">
+            class="absolute text-white p-10 lg:w-[55em] top-[40em] md:top-[42em] lg:top-[30em] xl:top-[43em] xl:left-[15em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
+            <h2 class="serif text-5xl mb-20 lg:ml-[8em] z-20 text-right md:text-left">Highlighted <br> projects</h2>
+            <ul class="sans text-xl md:top-0 relative top-[7em]">
+                <li class="mb-20 lg:ml-[10em] relative md:max-w-[30em] max-w-[18em]">
+                    <div class="w-3/4">
                         <h3 class="text-3xl serif">Project name</h3>
-                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
+                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum
+                            magni,
                             soluta
                             velit suscipit</p>
                     </div>
                     <a href="" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
                 </li>
-                <li class="mb-20 lg:mp-[3em] relative max-w-[30em]">
-                    <div class="unset w-3/4">
+                <li class="mb-20 lg:mp-[3em] relative md:max-w-[30em]">
+                    <div class="w-3/4">
                         <h3 class="text-3xl serif">Project name</h3>
                         <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
                             soluta
@@ -68,12 +78,21 @@ onMounted(() => {
         </div>
 
     </div>
-    <div class="absolute top-[120em]">
-        <ul>
-            <li v-for="project in projects">
-                <h3>{{ project.name }}</h3>
-                <p>{{ project.description }}</p>
-                <a :href="project.svn_url" target="_blank">view</a>
+    <div
+        class="absolute top-[113em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
+        <h2 class="serif text-5xl mb-10 leading-8 text-right lg:mr-[3em] xl:mr-[5em] 3xl:mr-[9em]">All projects
+            <br><span class="text-xl">Including school
+                projects</span>
+        </h2>
+        <ul
+            class="text-lg grid grid-cols-1 sm:grid-cols-2 m-auto w-full sm:w-3/4 gap-4 relative lg:top-[15em] 2xl:top-[20em]">
+            <li v-for="project in projects" class="m-auto w-3/4 mb-10" :id="project.id">
+                <h3 class="text-3xl serif">- {{ project.name }}</h3>
+                <p>Last worked on: {{ formatDate(project.pushed_at) }}</p>
+                <p class="mb-2">{{ project.description }}</p>
+                <a :href="project.html_url" target="_blank" class="text-2xl serif">Github</a>
+                <span v-if="project.homepage"> - <a :href="project.homepage" target="_blank"
+                        class="text-2xl serif">Site</a></span>
             </li>
         </ul>
     </div>

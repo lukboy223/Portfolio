@@ -67,8 +67,12 @@
         </div>
         <div id="projects"
             class="absolute text-white left-0 p-10 lg:w-[55em] top-[80em] md:top-[50em] lg:top-[30em] xl:top-[45em] xl:left-[10em] 2xl:top-[60em] 2xl:left-[32em]">
-            <h2 class="serif text-5xl mb-20 w-[5em] lg:ml-[8em]">Highlighted projects</h2>
+            <h2 class="serif text-5xl mb-10 w-[5em] lg:ml-[8em]">Highlighted projects</h2>
             <ul class="sans text-xl">
+                <li class="mb-10 lg:ml-[19em] relative max-w-[30em]">
+                    <router-link :to="{ name: 'Projects' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">View all
+                        projects</router-link>
+                </li>
                 <li class="mb-20 lg:ml-[10em] relative max-w-[30em]">
                     <div class="unset w-3/4">
                         <h3 class="text-3xl serif">Project name</h3>
@@ -89,10 +93,7 @@
                     <a href="" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
                 </li>
-                <li class="mb-20 lg:mp-[3em] relative max-w-[30em]">
-                    <router-link :to="{ name: 'Projects' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">View all
-                        projects</router-link>
-                </li>
+
             </ul>
         </div>
         <div id="symbol art" class="mono w-[1435px] absolute text-[#CA0130] font-black 
