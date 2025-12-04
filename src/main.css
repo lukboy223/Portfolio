@@ -51,3 +51,24 @@
 .clipper {
   clip-path: inset(-200px 0 0);
 }
+
+.blueLine{
+   border-top: 3.5px solid #ca0130;
+}
+.blueLine::before{
+    content: '';
+  position: absolute;
+  height: 3px;
+  width: 100em;
+  top: -3.5px;
+  left: -100em;
+  background-color: #00b5a9;
+}
+.blueLine::after{
+    content: '';
+  position: absolute;
+  height: 3px;
+  width: 100em;
+  left: -99.8em;
+  background-color: #00b5a9;
+}
