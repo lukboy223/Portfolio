@@ -75,10 +75,9 @@
                 </li>
                 <li class="mb-20 lg:ml-[10em] relative max-w-[30em]">
                     <div class="unset w-3/4">
-                        <h3 class="text-3xl serif">Project name</h3>
-                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
-                            soluta
-                            velit suscipit</p>
+                        <h3 class="text-3xl serif">Portfolio</h3>
+                        <p class="mb-5">My Portfolio website which I have probably worked the longest on as I thought it
+                            would be fun to do this complicated design.</p>
                     </div>
                     <a href="" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>

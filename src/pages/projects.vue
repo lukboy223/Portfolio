@@ -3,18 +3,43 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
 const projects = ref(null);
+const projectType = ref('Github');
+const GithubButton = ref('underline');
+const otherButton = ref('');
 const page = ref(1);
 const hasMore = ref(true);
 const nButton = ref('cursor-pointer');
 const pButton = ref('');
 
-const fetchProjects = () => {
+const fetchProjectsGithub = () => {
     axios.get('https://api.github.com/users/lukboy223/repos?sort=pushed&per_page=8&page=' + page.value)
         .then(Response => {
             projects.value = Response.data;
             hasMore.value = Response.data.length == 8;
         })
         .catch(error => console.error(error))
+}
+
+const fetchProjectsFile = () => {
+    axios.get('http://localhost:5173/projects.json')
+        .then(Response => {
+            projects.value = Response.data;
+        })
+        .catch(error => console.error(error))
+}
+
+const projectTypeChange = (type) => {
+    if (type == 'Github') {
+        projectType.value = 'Github'
+        GithubButton.value = 'underline'
+        otherButton.value = ''
+        fetchProjectsGithub()
+    } else {
+        projectType.value = 'file'
+        GithubButton.value = ''
+        otherButton.value = 'underline'
+        fetchProjectsFile()
+    }
 }
 
 const ButtonSate = () => {
@@ -31,16 +56,16 @@ const ButtonSate = () => {
 }
 
 onMounted(() => {
-    fetchProjects();
+    fetchProjectsGithub();
 });
 
 const switchPage = (changer) => {
     if (changer == '+' && hasMore.value) {
         page.value = page.value + 1;
-        fetchProjects()
+        fetchProjectsGithub()
     } else if (changer == '-' && page.value > 1) {
         page.value = page.value - 1;
-        fetchProjects()
+        fetchProjectsGithub()
     }
     ButtonSate();
 
@@ -93,12 +118,10 @@ const formatDate = (dateString) => {
                 <li class="mb-20 lg:ml-[10em] relative md:max-w-[30em] max-w-[18em]">
                     <div class="w-3/4">
                         <h3 class="text-3xl serif">Portfolio</h3>
-                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum
-                            magni,
-                            soluta
-                            velit suscipit</p>
+                        <p class="mb-5">My Portfolio website which I have probably worked the longest on as I thought it
+                            would be fun to do this complicated design.</p>
                     </div>
-                    <a href="" target="_blank"
+                    <a href="https://github.com/lukboy223/Portfolio" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
                 </li>
                 <li class="mb-20 lg:mp-[3em] relative md:max-w-[30em]">
@@ -140,22 +163,28 @@ const formatDate = (dateString) => {
     </div>
     <div id="project list"
         class="absolute top-[113em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
-        <h2 class="serif text-5xl mb-10 leading-8 text-right lg:mr-[3em] xl:mr-[5em] 3xl:mr-[9em]">All projects
-            <br><span class="text-xl">Including school
-                projects</span>
-        </h2>
+        <div class="mb-10 lg:mr-[3em] xl:mr-[5em] 3xl:mr-[20em] text-right">
+            <h2 class="serif text-5xl leading-8 ">All projects
+                <br><span class="text-xl">Including school
+                    projects</span>
+            </h2>
+            <div class="mt-5">
+                <span class="cursor-pointer" :class="GithubButton" @click="projectTypeChange('Github')">Github</span> |
+                <span class="cursor-pointer" :class="otherButton" @click="projectTypeChange('File')">Non Github</span>
+            </div>
+        </div>
         <ul
             class="text-lg grid grid-cols-1 lg:grid-cols-2 m-auto w-full sm:w-3/4 gap-4 relative lg:mt-[15em] 2xl:mt-[20em]">
             <li v-for="project in projects" class="m-auto w-3/4 mb-10 relative h-[9em]" :id="project.id">
                 <h3 class="text-3xl serif">- {{ project.name }}</h3>
                 <p>Last worked on: {{ formatDate(project.pushed_at) }}</p>
                 <p class="mb-2">{{ project.description }}</p>
-                <a :href="project.html_url" target="_blank" class="text-2xl serif">Github</a>
-                <span v-if="project.homepage"> - <a :href="project.homepage" target="_blank"
-                        class="text-2xl serif">Site</a></span>
+                <a v-if="project.html_url" :href="project.html_url" target="_blank" class="text-2xl serif">Github</a>
+                <span v-if="project.homepage && project.html_url"> - </span><a v-if="project.homepage"
+                    :href="project.homepage" target="_blank" class="text-2xl serif">Site</a>
             </li>
         </ul>
-        <div class="relative m-auto flex justify-between text-lg w-3/4">
+        <div class="relative m-auto flex justify-between text-lg w-3/4" v-if="projectType == 'Github'">
             <button @click="switchPage('-')" :disabled="page == 1" :class="pButton"><- prev</button>
                     <button @click=" switchPage('+')" :disabled="!hasMore" :class="nButton">next -></button>
         </div>
