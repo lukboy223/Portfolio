@@ -10,20 +10,25 @@ const page = ref(1);
 const hasMore = ref(true);
 const nButton = ref('cursor-pointer');
 const pButton = ref('');
+const loading = ref(true)
 
 const fetchProjectsGithub = () => {
+    loading.value = true
     axios.get('https://api.github.com/users/lukboy223/repos?sort=pushed&per_page=8&page=' + page.value)
         .then(Response => {
             projects.value = Response.data;
             hasMore.value = Response.data.length == 8;
+            loading.value = false
         })
         .catch(error => console.error(error))
 }
 
 const fetchProjectsFile = () => {
+    loading.value = true
     axios.get('http://localhost:5173/projects.json')
         .then(Response => {
             projects.value = Response.data;
+            loading.value = false
         })
         .catch(error => console.error(error))
 }
@@ -33,11 +38,14 @@ const projectTypeChange = (type) => {
         projectType.value = 'Github'
         GithubButton.value = 'underline'
         otherButton.value = ''
+        projects.value = '';
         fetchProjectsGithub()
     } else {
         projectType.value = 'file'
         GithubButton.value = ''
         otherButton.value = 'underline'
+        projects.value = '';
+
         fetchProjectsFile()
     }
 }
@@ -126,12 +134,11 @@ const formatDate = (dateString) => {
                 </li>
                 <li class="mb-20 lg:mp-[3em] relative md:max-w-[30em]">
                     <div class="w-3/4">
-                        <h3 class="text-3xl serif">Project name</h3>
-                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
-                            soluta
-                            velit suscipit</p>
+                        <h3 class="text-3xl serif">MeTransfer</h3>
+                        <p class="mb-5">A website I made together with another intern at my internship. The site is an
+                            file transfer application similar to WetTransfer.</p>
                     </div>
-                    <a href="" target="_blank"
+                    <a href="https://metransfer.nl" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
                 </li>
             </ul>
@@ -168,12 +175,12 @@ const formatDate = (dateString) => {
                 <br><span class="text-xl">Including school
                     projects</span>
             </h2>
-            <div class="mt-5">
+            <div class="mt-1">
                 <span class="cursor-pointer" :class="GithubButton" @click="projectTypeChange('Github')">Github</span> |
-                <span class="cursor-pointer" :class="otherButton" @click="projectTypeChange('File')">Non Github</span>
+                <span class="cursor-pointer" :class="otherButton" @click="projectTypeChange('File')">non Github</span>
             </div>
         </div>
-        <ul
+        <ul v-if="loading == false"
             class="text-lg grid grid-cols-1 lg:grid-cols-2 m-auto w-full sm:w-3/4 gap-4 relative lg:mt-[15em] 2xl:mt-[20em]">
             <li v-for="project in projects" class="m-auto w-3/4 mb-10 relative h-[9em]" :id="project.id">
                 <h3 class="text-3xl serif">- {{ project.name }}</h3>
@@ -184,7 +191,11 @@ const formatDate = (dateString) => {
                     :href="project.homepage" target="_blank" class="text-2xl serif">Site</a>
             </li>
         </ul>
-        <div class="relative m-auto flex justify-between text-lg w-3/4" v-if="projectType == 'Github'">
+        <div v-else class="w-full text-center mt-[20em]">
+            <h3 class="text-5xl serif italic">Loading...</h3>
+        </div>
+        <div class="relative m-auto flex justify-between text-lg w-3/4"
+            v-if="projectType == 'Github' && loading == false">
             <button @click="switchPage('-')" :disabled="page == 1" :class="pButton"><- prev</button>
                     <button @click=" switchPage('+')" :disabled="!hasMore" :class="nButton">next -></button>
         </div>

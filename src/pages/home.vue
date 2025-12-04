@@ -84,12 +84,11 @@
                 </li>
                 <li class="mb-20 lg:mp-[3em] relative max-w-[30em]">
                     <div class="unset w-3/4">
-                        <h3 class="text-3xl serif">Project name</h3>
-                        <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni,
-                            soluta
-                            velit suscipit</p>
+                        <h3 class="text-3xl serif">MeTransfer</h3>
+                        <p class="mb-5">A website I made together with another intern at my internship. The site is an
+                            file transfer application similar to WetTransfer.</p>
                     </div>
-                    <a href="" target="_blank"
+                    <a href="https://metransfer.nl" target="_blank"
                         class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
                 </li>
 
