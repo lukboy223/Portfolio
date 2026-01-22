@@ -18,14 +18,11 @@
     </nav>
   </header>
   <main id="app" class="relative">
-    <div class="4xl:hidden">
+    <div class="relative w-full min-h-screen max-w-[2500px] ">
       <router-view />
     </div>
-    <div class="hidden 4xl:flex">
-      <h1 class="relative serif text-white text-6xl m-auto w-2/3 top-[10em]">Use a smaller screen brother, why are you
-        using
-        this big
-        of a screen. It was already hard enough to make this website work on small screens. Go ahead zoom in</h1>
+    <div id="margin area"
+      class="fixed top-0 right-0 bg-[#00B5A9] border-l-3 border-[#CA0130] h-full w-[calc(100vw-2500px)] hidden 3xl:block">
     </div>
   </main>
 </template>
