@@ -1,5 +1,53 @@
 <script setup>
+import { onMounted, ref } from 'vue';
 import redPanda from '@/components/redPanda.vue';
+
+const title = ref('');
+const titleText = ref('Luka van Ekeren');
+
+onMounted(async () => {
+    const titleArray = titleText.value.split('');
+
+    for (const titleLetter of titleArray) {
+        let isUppercase = false;
+        if (titleLetter == titleLetter.toUpperCase()) {
+            isUppercase = true;
+        }
+
+        await loopLetters(titleLetter.toLowerCase(), isUppercase);
+        await new Promise(resolve => setTimeout(resolve, 10)); // Delay between letters
+    }
+});
+
+const loopLetters = (targetLetter, isUppercase) => {
+    return new Promise((resolve) => {
+        const loopLetters = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+        const startLength = title.value.length;
+        let currentIndex = 0;
+
+        const interval = setInterval(() => {
+            if (currentIndex < loopLetters.length) {
+                if (loopLetters[currentIndex] === targetLetter) {
+                    if (isUppercase) {
+                        title.value = title.value.substring(0, startLength) + targetLetter.toUpperCase();
+                    } else {
+                        title.value = title.value.substring(0, startLength) + targetLetter;
+                    }
+                    clearInterval(interval);
+                    resolve(); // Signal completion
+                } else {
+                    title.value = title.value.substring(0, startLength) + loopLetters[currentIndex];
+                }
+                currentIndex++;
+            } else {
+                clearInterval(interval);
+                resolve(); // Signal completion even if not found
+            }
+        }, 50);
+    });
+}
+
 </script>
 
 <template>
@@ -50,7 +98,7 @@ import redPanda from '@/components/redPanda.vue';
         </div>
 
         <div class="w-full" id="title">
-            <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">Luka van Ekeren</h1>
+            <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">{{ title }}</h1>
         </div>
         <div id="about"
             class="right-0 absolute md:w-[30em] w-full top-[38em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[22em] 3xl:w-[40em] text-right text-white p-10">
@@ -118,7 +166,7 @@ import redPanda from '@/components/redPanda.vue';
         xl:top-[100em] xl:left-[20.5em]
         2xl:top-[130em] 2xl:left-[30.5em]
         3xl:left-[35.5em]
-        ">
+        " v-on:load="">
             <h3 class="serif text-white text-5xl mb-20
             md:ml-[7em]">Contact</h3>
             <ul class="text-white underline text-2xl sans">

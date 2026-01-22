@@ -1,28 +1,55 @@
 <script setup>
+import { ref } from 'vue';
+const HomeButton = ref('px-4');
+const ProjectsButton = ref('px-4');
+const AboutButton = ref('px-4');
+
+const navItemAnimation = (Button = null) => {
+  switch (Button) {
+    case 'Home':
+      HomeButton.value = 'text-4xl px-2';
+      break;
+    case 'Projects':
+      ProjectsButton.value = 'text-4xl px-2';
+      break;
+    case 'About':
+      AboutButton.value = 'text-4xl px-1';
+      break;
+    default:
+      HomeButton.value = 'px-4';
+      ProjectsButton.value = 'px-4';
+      AboutButton.value = 'px-4';
+      break
+  }
+}
 </script>
 
 <template>
   <header id="nav" class="w-full">
-    <nav class="md:w-1/2 w-full md:ml-[10%] absolute">
-      <ul class="flex justify-between text-white font-serif text-2xl m-5">
-        <li class="relative z-10">
+    <nav class="md:w-1/2 w-full md:ml-[10em] md:max-w-[1245px] absolute">
+      <ul class="flex justify-between text-white serif text-3xl m-5">
+        <li class="relative z-10 ease-out duration-300" :class="HomeButton" v-on:mouseover="navItemAnimation('Home')"
+          v-on:mouseleave="navItemAnimation()">
           <router-link :to="{ name: 'Home' }" class="">Home</router-link>
         </li>
-        <li class="relative z-10">
+        <li class="relative z-10 ease-out duration-300" :class="ProjectsButton"
+          v-on:mouseover="navItemAnimation('Projects')" v-on:mouseleave="navItemAnimation()">
           <router-link :to="{ name: 'Projects' }">Projects</router-link>
         </li>
-        <li class="relative z-10">
+        <li class="relative z-10 ease-out duration-300" :class="AboutButton" v-on:mouseover="navItemAnimation('About')"
+          v-on:mouseleave="navItemAnimation()">
           <router-link :to="{ name: 'About' }">About me</router-link>
         </li>
       </ul>
     </nav>
   </header>
   <main id="app" class="relative">
-    <div class="relative w-full min-h-screen max-w-[2500px] ">
+    <div class="relative w-full min-h-screen max-w-[2490px] ">
       <router-view />
     </div>
     <div id="margin area"
-      class="fixed top-0 right-0 bg-[#00B5A9] border-l-3 border-[#CA0130] h-full w-[calc(100vw-2500px)] hidden 3xl:block">
+      class="fixed top-0 right-0 bg-[#00B5A9] border-l-3 border-[#CA0130] h-full w-[calc(100vw-2490px)] hidden 3xl:block">
+      <h3 class="text-white font-serif text-4xl top-[50%] left-[5em] relative">How big is your screen?</h3>
     </div>
   </main>
 </template>
