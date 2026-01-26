@@ -1,43 +1,19 @@
 <script setup>
 import { ref } from 'vue';
-const HomeButton = ref('px-4');
-const ProjectsButton = ref('px-4');
-const AboutButton = ref('px-4');
 
-const navItemAnimation = (Button = null) => {
-  switch (Button) {
-    case 'Home':
-      HomeButton.value = 'text-4xl px-2';
-      break;
-    case 'Projects':
-      ProjectsButton.value = 'text-4xl px-2';
-      break;
-    case 'About':
-      AboutButton.value = 'text-4xl px-1';
-      break;
-    default:
-      HomeButton.value = 'px-4';
-      ProjectsButton.value = 'px-4';
-      AboutButton.value = 'px-4';
-      break
-  }
-}
 </script>
 
 <template>
   <header id="nav" class="w-full">
     <nav class="md:w-1/2 w-full md:ml-[10em] md:max-w-[1245px] absolute">
       <ul class="flex justify-between text-white serif text-3xl m-5">
-        <li class="relative z-10 ease-out duration-300" :class="HomeButton" v-on:mouseover="navItemAnimation('Home')"
-          v-on:mouseleave="navItemAnimation()">
+        <li class="relative z-10 ease-out duration-300 px-4 hover:text-4xl hover:px-2">
           <router-link :to="{ name: 'Home' }" class="">Home</router-link>
         </li>
-        <li class="relative z-10 ease-out duration-300" :class="ProjectsButton"
-          v-on:mouseover="navItemAnimation('Projects')" v-on:mouseleave="navItemAnimation()">
+        <li class="relative z-10 ease-out duration-300 px-4 hover:text-4xl hover:px-2">
           <router-link :to="{ name: 'Projects' }">Projects</router-link>
         </li>
-        <li class="relative z-10 ease-out duration-300" :class="AboutButton" v-on:mouseover="navItemAnimation('About')"
-          v-on:mouseleave="navItemAnimation()">
+        <li class="relative z-10 ease-out duration-300 px-4 hover:text-4xl hover:px-1">
           <router-link :to="{ name: 'About' }">About me</router-link>
         </li>
       </ul>

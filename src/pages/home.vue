@@ -4,6 +4,7 @@ import redPanda from '@/components/redPanda.vue';
 
 const title = ref('');
 const titleText = ref('Luka van Ekeren');
+const email = ref('opacity-0')
 
 onMounted(async () => {
     const titleArray = titleText.value.split('');
@@ -44,9 +45,22 @@ const loopLetters = (targetLetter, isUppercase) => {
                 clearInterval(interval);
                 resolve(); // Signal completion even if not found
             }
-        }, 50);
+        }, 30);
     });
 }
+
+const showEmail = (movement) => {
+    if (movement == 'on') {
+        email.value = "opacity-100"
+    } else {
+        email.value = "opacity-0"
+    }
+}
+
+const buttonAnimation = (button) => {
+
+}
+
 
 </script>
 
@@ -80,12 +94,21 @@ const loopLetters = (targetLetter, isUppercase) => {
         </div>
         <div id="rotated red block bottom" class="absolute bg-[#CA0130] rotate-[-35deg] h-[100em] w-[120em] 
             3xl:left-[-15em]
-            2xl:left-[-20em] 2xl:top-[150em] 2xl:before:h-[920px] 2xl:before:top-[-916.5px]
-            xl:top-[120em] xl:left-[-30em] xl:before:h-[820px] xl:before:top-[-816.5px]
-            lg:top-[100em] lg:left-[-40em] before:h-[660px] before:top-[-656.5px]
+            2xl:left-[-20em] 2xl:top-[150em] 2xl:before:h-[920px] 2xl:before:top-[-919.5px]
+            xl:top-[120em] xl:left-[-30em] xl:before:h-[820px] xl:before:top-[-819.5px]
+            lg:top-[100em] lg:left-[-40em] before:h-[660px] before:top-[-659.5px]
             md:top-[120em] md:left-[-50em] 
             top-[160em] left-[-70em] 
             lineBlockBottom z-[-8]">
+        </div>
+        <div class="h-[3px] w-[250em] bg-[#CA0130] absolute rotate-[-35deg] z-10
+        3xl:top-[1465px]
+        2xl:top-[1410px]
+        xl:top-[820px]
+        lg:top-[388px]
+        md:top-[595px]
+        top-[1012px]
+        " id="rotated red block bottom line" style="left: calc(-110em + 119em * cos(-35deg));">
         </div>
         <div id="line bottom" class="absolute w-[100em] rotate-[-35deg] h-[3px] bg-[#00B5A9] z-[-7]
             3xl:left-[45em] 
@@ -109,13 +132,10 @@ const loopLetters = (targetLetter, isUppercase) => {
                 become software
                 developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
                     class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer.
-                As
-                of
-                now I specialize in web development and like to challenge myself with difficult front-end designs
-                and
-                complicated back-end problems.
+                As of now I specialize in web development and like to challenge myself with difficult front-end designs
+                and complicated back-end problems.
             </p>
-            <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">Read
+            <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]" id="About-button">Read
                 more</router-link>
         </div>
         <div id="projects"
@@ -152,7 +172,7 @@ const loopLetters = (targetLetter, isUppercase) => {
         <div id="symbol art" class="mono w-[1435px] absolute text-[#CA0130] font-black 
     3xl:top-[104em] 3xl:right-0 
     2xl:top-[104em] 2xl:right-[-20em] 
-    xl:top-[80em] xl:right-[-25em] 
+    xl:top-[82em] xl:right-[-25.2em] 
     lg:top-[65em] lg:right-[-25em] 
     md:top-[85em] md:right-[-25em] 
     top-[135em] right-[-25em] 
@@ -166,17 +186,22 @@ const loopLetters = (targetLetter, isUppercase) => {
         xl:top-[100em] xl:left-[20.5em]
         2xl:top-[130em] 2xl:left-[30.5em]
         3xl:left-[35.5em]
-        " v-on:load="">
+        ">
             <h3 class="serif text-white text-5xl mb-20
             md:ml-[7em]">Contact</h3>
-            <ul class="text-white underline text-2xl sans">
-                <li class="mb-15 
-                md:ml-[10em] 
-                "><a href="mailto:mail@mail.com">E-mail</a></li>
+            <ul class="text-white text-2xl sans">
+                <li class="mb-15
+                md:ml-[10em] w-fit
+                " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
+                        class="underline">E-mail</a>
+                    <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
+                    </div>
+                </li>
                 <li class="mb-15
                 md:ml-[5em]
-                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank">Linkedin</a></li>
-                <li><a href="https://github.com/lukboy223" target="_blank">Github</a></li>
+                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
+                        class="underline">Linkedin</a></li>
+                <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>
             </ul>
         </div>
         <div id="footer credits" class="text-white serif m-1 absolute bottom-0 

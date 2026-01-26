@@ -10,18 +10,76 @@ const otherButton = ref('');
 const page = ref(1);
 const hasMore = ref(true);
 const nButton = ref('cursor-pointer');
-const pButton = ref('');
+const pButton = ref('opacity-0');
 const loading = ref(true)
+const title = ref('');
+const titleText = ref('Projects');
+const email = ref('opacity-0')
 
-const fetchProjectsGithub = () => {
-    loading.value = true
-    axios.get('https://api.github.com/users/lukboy223/repos?sort=pushed&per_page=8&page=' + page.value)
-        .then(Response => {
-            projects.value = Response.data;
-            hasMore.value = Response.data.length == 8;
-            loading.value = false
-        })
-        .catch(error => console.error(error))
+const showEmail = (movement) => {
+    if (movement == 'on') {
+        email.value = "opacity-100"
+    } else {
+        email.value = "opacity-0"
+    }
+}
+
+onMounted(async () => {
+    const titleArray = titleText.value.split('');
+
+    for (const titleLetter of titleArray) {
+        let isUppercase = false;
+        if (titleLetter == titleLetter.toUpperCase()) {
+            isUppercase = true;
+        }
+
+        await loopLetters(titleLetter.toLowerCase(), isUppercase);
+        await new Promise(resolve => setTimeout(resolve, 10)); // Delay between letters
+    }
+});
+
+const loopLetters = (targetLetter, isUppercase) => {
+    return new Promise((resolve) => {
+        const loopLetters = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+        const startLength = title.value.length;
+        let currentIndex = 0;
+
+        const interval = setInterval(() => {
+            if (currentIndex < loopLetters.length) {
+                if (loopLetters[currentIndex] === targetLetter) {
+                    if (isUppercase) {
+                        title.value = title.value.substring(0, startLength) + targetLetter.toUpperCase();
+                    } else {
+                        title.value = title.value.substring(0, startLength) + targetLetter;
+                    }
+                    clearInterval(interval);
+                    resolve(); // Signal completion
+                } else {
+                    title.value = title.value.substring(0, startLength) + loopLetters[currentIndex];
+                }
+                currentIndex++;
+            } else {
+                clearInterval(interval);
+                resolve(); // Signal completion even if not found
+            }
+        }, 30);
+    });
+}
+
+
+
+const fetchProjectsGithub = async () => {
+    try {
+        loading.value = true;
+        const response = await axios.get('https://api.github.com/users/lukboy223/repos?sort=pushed&per_page=8&page=' + page.value);
+        projects.value = response.data;
+        hasMore.value = response.data.length == 8;
+        loading.value = false;
+    } catch (error) {
+        console.error(error);
+        loading.value = false;
+    }
 }
 
 const fetchProjectsFile = () => {
@@ -34,33 +92,33 @@ const fetchProjectsFile = () => {
         .catch(error => console.error(error))
 }
 
-const projectTypeChange = (type) => {
+const projectTypeChange = async (type) => {
     if (type == 'Github') {
         projectType.value = 'Github'
         GithubButton.value = 'underline'
         otherButton.value = ''
         projects.value = '';
-        fetchProjectsGithub()
+        await fetchProjectsGithub()
     } else {
         projectType.value = 'file'
         GithubButton.value = ''
         otherButton.value = 'underline'
         projects.value = '';
-
-        fetchProjectsFile()
+        await fetchProjectsFile()
     }
 }
 
 const ButtonSate = () => {
+
     if (page.value == 1) {
-        pButton.value = ''
+        pButton.value = 'opacity-0'
     } else {
         pButton.value = 'cursor-pointer'
     }
-    if (hasMore) {
-        nButton.value = ''
-    } else {
+    if (hasMore.value) {
         nButton.value = 'cursor-pointer'
+    } else {
+        nButton.value = 'opacity-0'
     }
 }
 
@@ -68,13 +126,13 @@ onMounted(() => {
     fetchProjectsGithub();
 });
 
-const switchPage = (changer) => {
+const switchPage = async (changer) => {
     if (changer == '+' && hasMore.value) {
         page.value = page.value + 1;
-        fetchProjectsGithub()
+        await fetchProjectsGithub()
     } else if (changer == '-' && page.value > 1) {
         page.value = page.value - 1;
-        fetchProjectsGithub()
+        await fetchProjectsGithub()
     }
     ButtonSate();
 
@@ -118,7 +176,7 @@ const formatDate = (dateString) => {
         </div>
 
         <div class="w-full" id="title">
-            <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">Projects</h1>
+            <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">{{ title }}</h1>
         </div>
         <div id="projects"
             class="absolute text-white p-10 lg:w-[55em] top-[40em] md:top-[42em] lg:top-[30em] xl:top-[43em] xl:left-[15em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
@@ -220,14 +278,19 @@ const formatDate = (dateString) => {
         ">
         <h3 class="serif text-white text-5xl mb-20
             lg:ml-[7em]">Contact</h3>
-        <ul class="text-white underline text-2xl sans">
-            <li class="mb-15 
-                lg:ml-[10em] 
-                "><a href="mailto:mail@mail.com">E-mail</a></li>
+        <ul class="text-white text-2xl sans">
             <li class="mb-15
-                lg:ml-[5em]
-                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank">Linkedin</a></li>
-            <li><a href="https://github.com/lukboy223" target="_blank">Github</a></li>
+                md:ml-[10em] w-fit
+                " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
+                    class="underline">E-mail</a>
+                <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
+                </div>
+            </li>
+            <li class="mb-15
+                md:ml-[5em]
+                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
+                    class="underline">Linkedin</a></li>
+            <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>
         </ul>
     </div>
 

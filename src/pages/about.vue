@@ -1,6 +1,61 @@
 <script setup>
+import { ref, onMounted } from 'vue';
 import redPanda from '@/components/redPanda.vue';
 
+const title = ref('');
+const titleText = ref('About me');
+const email = ref('opacity-0')
+
+const showEmail = (movement) => {
+    if (movement == 'on') {
+        email.value = "opacity-100"
+    } else {
+        email.value = "opacity-0"
+    }
+}
+
+onMounted(async () => {
+    const titleArray = titleText.value.split('');
+
+    for (const titleLetter of titleArray) {
+        let isUppercase = false;
+        if (titleLetter == titleLetter.toUpperCase()) {
+            isUppercase = true;
+        }
+
+        await loopLetters(titleLetter.toLowerCase(), isUppercase);
+        await new Promise(resolve => setTimeout(resolve, 10)); // Delay between letters
+    }
+});
+
+const loopLetters = (targetLetter, isUppercase) => {
+    return new Promise((resolve) => {
+        const loopLetters = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+        const startLength = title.value.length;
+        let currentIndex = 0;
+
+        const interval = setInterval(() => {
+            if (currentIndex < loopLetters.length) {
+                if (loopLetters[currentIndex] === targetLetter) {
+                    if (isUppercase) {
+                        title.value = title.value.substring(0, startLength) + targetLetter.toUpperCase();
+                    } else {
+                        title.value = title.value.substring(0, startLength) + targetLetter;
+                    }
+                    clearInterval(interval);
+                    resolve(); // Signal completion
+                } else {
+                    title.value = title.value.substring(0, startLength) + loopLetters[currentIndex];
+                }
+                currentIndex++;
+            } else {
+                clearInterval(interval);
+                resolve(); // Signal completion even if not found
+            }
+        }, 30);
+    });
+}
 </script>
 
 <template>
@@ -30,7 +85,7 @@ import redPanda from '@/components/redPanda.vue';
         </div>
 
         <div class="w-full" id="title">
-            <h1 class="serif text-white text-6xl w-[5em] m-auto leading-20">About me</h1>
+            <h1 class="serif text-white text-6xl w-[5em] m-auto leading-20">{{ title }}</h1>
         </div>
         <div id="about small"
             class="right-0 absolute md:w-[30em] w-full top-[40em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[15em] 3xl:w-[40em] text-right text-white p-10">
@@ -48,11 +103,17 @@ import redPanda from '@/components/redPanda.vue';
         </div>
         <div id="about big"
             class="absolute text-xl text-white p-10 lg:w-[55em] top-[100em] md:top-[42em] lg:top-[30em] xl:top-[45em] xl:left-[15em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
-            <p>Hello my name is Luka, I am a student at <a href="https://mboutrecht.nl/" class="underline"
-                    target="_blank">MBO Utrecht</a> learning to be a software developer. Currently I am doing an
-                internship at <a href="https://depositado.com/" class="underline" target="_blank">Depositado</a> and
-                planning to continue studying afterwards. My main interest with coding is back-end development of
-                websites, but I also like to build front-end designs. </p>
+            <p>Hello my name is Luka, I am a 18 year old student living in the Netherlands, currently I am studying at
+                <a href="https://mboutrecht.nl/" class="underline" target="_blank">MBO Utrecht</a>
+                to become a full fledged software developer. Currently I am working at
+                <a href="https://depositado.com/" class="underline" target="_blank">Depositado</a>
+                as an intern to finish my course. Afterwards I am planning to continue my studies until I get a bachelor
+                degree in software development.
+
+                Although working on complicated back-end infrastructures does peak my interest, I also like working on
+                creative front-end designs to make the website look clean and professional. As of now I primarily code
+                in PHP, HTML, CSS and JavaScript working in different frameworks such as Laravel and Vue.
+            </p>
         </div>
         <div id="blue block bottom" class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[200em] -z-10 
            
@@ -102,14 +163,19 @@ import redPanda from '@/components/redPanda.vue';
         ">
         <h3 class="serif text-white text-5xl mb-20
             lg:ml-[7em]">Contact</h3>
-        <ul class="text-white underline text-2xl sans">
-            <li class="mb-15 
-                lg:ml-[10em] 
-                "><a href="mailto:mail@mail.com">E-mail</a></li>
+        <ul class="text-white text-2xl sans">
             <li class="mb-15
-                lg:ml-[5em]
-                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank">Linkedin</a></li>
-            <li><a href="https://github.com/lukboy223" target="_blank">Github</a></li>
+                md:ml-[10em] w-fit
+                " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
+                    class="underline">E-mail</a>
+                <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
+                </div>
+            </li>
+            <li class="mb-15
+                md:ml-[5em]
+                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
+                    class="underline">Linkedin</a></li>
+            <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>
         </ul>
     </div>
 
