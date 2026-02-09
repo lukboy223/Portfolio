@@ -126,45 +126,45 @@ const buttonAnimation = (button) => {
         <div id="about"
             class="right-0 absolute md:w-[30em] w-full top-[38em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[22em] 3xl:w-[40em] text-right text-white p-10">
             <h2 class="serif text-5xl mb-5 leading-6">About me <br><span class="text-xl">in short</span></h2>
-            <p class="sans text-xl mb-5">Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/"
-                    class="underline" target="_blank">MBO
-                    Utrecht</a> learning to
-                become software
+            <p class="sans text-xl mb-5">
+                Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/" class="underline"
+                    target="_blank">MBO Utrecht</a> learning to become software
                 developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
                     class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer.
                 As of now I specialize in web development and like to challenge myself with difficult front-end designs
                 and complicated back-end problems.
             </p>
-            <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]" id="About-button">Read
-                more</router-link>
+            <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130] ButtonHover relative"
+                id="About-button">Read more</router-link>
         </div>
         <div id="projects"
             class="absolute text-white left-0 p-10 lg:w-[55em] top-[80em] md:top-[50em] lg:top-[30em] xl:top-[45em] xl:left-[10em] 2xl:top-[60em] 2xl:left-[32em]">
             <h2 class="serif text-5xl mb-10 w-[5em] lg:ml-[8em]">Highlighted projects</h2>
             <ul class="sans text-xl">
                 <li class="mb-10 lg:ml-[19em] relative max-w-[30em]">
-                    <router-link :to="{ name: 'Projects' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">View all
+                    <router-link :to="{ name: 'Projects' }"
+                        class="serif text-3xl px-4 py-2 bg-[#CA0130] ButtonHover relative">View all
                         projects</router-link>
                 </li>
-                <li class="mb-20 lg:ml-[10em] relative max-w-[30em]">
-                    <div class="unset w-3/4">
+                <li class="mb-20 lg:ml-[10em] relative max-w-[30em] lg:grid grid-cols-6">
+                    <div class="unset col-span-5">
                         <h3 class="text-3xl serif">Portfolio</h3>
                         <p class="mb-5">My Portfolio website which I have probably worked the longest on as I
                             thought it
                             would be fun to do this complicated design.</p>
                     </div>
                     <a href="" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
+                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
                 </li>
-                <li class="mb-20 lg:mp-[3em] relative max-w-[30em]">
-                    <div class="unset w-3/4">
+                <li class="mb-20 lg:mp-[3em] relative max-w-[30em] lg:grid grid-cols-6">
+                    <div class="unset col-span-5">
                         <h3 class="text-3xl serif">MeTransfer</h3>
                         <p class="mb-5">A website I made together with another intern at my internship. The site is
                             an
                             file transfer application similar to WetTransfer.</p>
                     </div>
                     <a href="https://metransfer.nl" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
+                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
                 </li>
 
             </ul>

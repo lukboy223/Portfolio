@@ -68,7 +68,7 @@ const loopLetters = (targetLetter, isUppercase) => {
 
     </div>
     <div id="contentBG" class="absolute w-full overflow-hidden top-40
-         3xl:h-[260em] 2xl:h-[285em] lg:h-[250em] h-[295em]">
+         3xl:h-[205em] 2xl:h-[225em] xl:h-[210em] lg:h-[183em] md:h-[205em] h-[275em]">
         <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] -z-10
             2xl:top-[60em] 2xl:left-[-17em] 
             xl:top-[40em] xl:left-[-17em]
@@ -102,37 +102,40 @@ const loopLetters = (targetLetter, isUppercase) => {
             </p>
         </div>
         <div id="about big"
-            class="absolute text-xl text-white p-10 lg:w-[55em] top-[100em] md:top-[42em] lg:top-[30em] xl:top-[45em] xl:left-[15em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
-            <p>Hello my name is Luka, I am a 18 year old student living in the Netherlands, currently I am studying at
+            class="absolute text-xl text-white sans lg:w-[40em] xl:w-[45em] p-10 top-[85em] md:top-[38em] md:w-[25em] lg:top-[36em] xl:top-[45em] xl:left-[10em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
+            <h2 class="serif text-5xl mb-5 leading-6">About</h2>
+            <p>
+                Hello my name is Luka, I am a 18 year old student living in the Netherlands, currently I am studying at
                 <a href="https://mboutrecht.nl/" class="underline" target="_blank">MBO Utrecht</a>
-                to become a full fledged software developer. Currently I am working at
+                to become a full fledged software developer. Currently I am in my last year of my course which consists
+                out of an entire school year of internship, currently I am working at
                 <a href="https://depositado.com/" class="underline" target="_blank">Depositado</a>
-                as an intern to finish my course. Afterwards I am planning to continue my studies until I get a bachelor
-                degree in software development.
-
-                Although working on complicated back-end infrastructures does peak my interest, I also like working on
+                as an intern. After I finished my internship and course I plan to continue studying to get my bachelors
+                degree in software development. <br>
+                <br>
+                Although working on complicated back-end infrastructures is what I like most, I also like realizing
                 creative front-end designs to make the website look clean and professional. As of now I primarily code
-                in PHP, HTML, CSS and JavaScript working in different frameworks such as Laravel and Vue.
+                in PHP, HTML, CSS, JavaScript and SQL working with different frameworks such as Laravel and Vue. On top
+                of that I have experience working with SCRUM and Github.
             </p>
         </div>
         <div id="blue block bottom" class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[200em] -z-10 
-           
-            top-[180em] left-[15em] 
-            md:top-[185em] md:left-[20em]
-            lg:top-[130em] lg:left-[50em]
-            xl:top-[145em]
-            2xl:top-[175em] 2xl:left-[70em]
-            3xl:top-[155em] 3xl:left-[100em]
+            top-[160em] left-[15em] 
+            md:top-[95em] md:left-[20em]
+            lg:top-[70em] lg:left-[50em]
+            xl:top-[100em]
+            2xl:top-[120em] 2xl:left-[70em]
+            3xl:top-[100em] 3xl:left-[100em]
             ">
         </div>
         <div id="blue block bottom 2" class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[200em] z-[-8] blueLine
-        top-[208.6em] left-[35em]
+        top-[188.6em] left-[35em]
         after:top-[-35.1em]
-        md:top-[209.6em] md:left-[37em] md:after:top-[-30.1em]
-        lg:top-[158.6em] lg:left-[70em] lg:after:top-[-35.1em]
-        xl:top-[173.6em]
-        2xl:top-[199.3em] 2xl:left-[87em] 2xl:after:top-[-29.8em]
-        3xl:top-[176.5em] 3xl:left-[115em] 3xl:after:top-[-26.4em]
+        md:top-[119.6em] md:left-[37em] md:after:top-[-30.1em]
+        lg:top-[98.6em] lg:left-[70em] lg:after:top-[-35.1em]
+        xl:top-[128.6em]
+        2xl:top-[144.3em] 2xl:left-[87em] 2xl:after:top-[-29.8em]
+        3xl:top-[121.5em] 3xl:left-[115em] 3xl:after:top-[-26.4em]
         ">
         </div>
         <div id="footer credits" class="text-white serif m-1 absolute bottom-0 
@@ -140,39 +143,55 @@ const loopLetters = (targetLetter, isUppercase) => {
             Designed and engineered by Luka
         </div>
     </div>
-    <div id="project list"
-        class="absolute top-[113em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
-
+    <div id="Work experience"
+        class="absolute top-[180em] md:top-[113em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
+        <div class="mb-10 lg:mr-[3em] xl:mr-[5em] 3xl:mr-[20em] text-right">
+            <h2 class="serif text-5xl leading-8 ">Working experience
+                <br><span class="text-xl">Excluding student jobs</span>
+            </h2>
+        </div>
+        <ul
+            class="text-lg grid grid-cols-1 lg:grid-cols-2 m-auto w-full sm:w-3/4 gap-4 relative lg:mt-[15em] 2xl:mt-[20em]">
+            <li class="m-auto w-3/4 mb-10 relative h-[9em]">
+                <h3 class="text-3xl serif">Intern - Depositado</h3>
+                <p class="before:content-['-'] before:mr-2">September 1, 2025, to present <br> 4 to 5 days a week</p>
+                <p class="mt-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero in officiis at tenetur
+                    dolore saepe
+                    pariatur laboriosam maxime quod, quidem molestias illo laborum sapiente possimus tempore placeat
+                    nulla quibusdam iusto!</p>
+            </li>
+        </ul>
     </div>
 
     <div id="symbol art" class="mono w-[1435px] absolute text-[#CA0130] font-black 
-    3xl:top-[225em] 3xl:right-[-10em] 
-    2xl:top-[252em] 2xl:right-[-22em] 
-    lg:top-[220em] lg:right-[-25em] 
-    sm:top-[280em]
-    top-[288em] right-[-31em] 
+    3xl:top-[160em] 3xl:right-[-15em] 
+    2xl:top-[184em] 2xl:right-[-22em] 
+    xl:top-[170em]xl:right-[-25em] 
+    lg:top-[150em] lg:right-[-25em] 
+    top-[250em] right-[-31em] 
     z-[-9]">
         <redPanda />
     </div>
     <div id="footer contact" class="absolute ml-10 
-        top-[270em] 
-        lg:top-[215em] lg:left-[10.5em]
-        xl:top-[228em] xl:left-[9.5em]
-        2xl:top-[258em] 2xl:left-[29.5em]
-        3xl:top-[238em] 3xl:left-[59em]
+        top-[250em] 
+        md:top-[180em] 
+        lg:top-[155em] lg:left-[10.5em]
+        xl:top-[185em] xl:left-[9.5em]
+        2xl:top-[205em] 2xl:left-[29.5em]
+        3xl:top-[185em] 3xl:left-[59em]
         ">
         <h3 class="serif text-white text-5xl mb-20
             lg:ml-[7em]">Contact</h3>
         <ul class="text-white text-2xl sans">
             <li class="mb-15
-                md:ml-[10em] w-fit
+                lg:ml-[10em] w-fit
                 " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
                     class="underline">E-mail</a>
                 <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
                 </div>
             </li>
             <li class="mb-15
-                md:ml-[5em]
+                lg:ml-[5em]
                 "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
                     class="underline">Linkedin</a></li>
             <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>

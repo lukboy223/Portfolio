@@ -182,23 +182,23 @@ const formatDate = (dateString) => {
             class="absolute text-white p-10 lg:w-[55em] top-[40em] md:top-[42em] lg:top-[30em] xl:top-[43em] xl:left-[15em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
             <h2 class="serif text-5xl mb-20 lg:ml-[8em] z-20 text-right md:text-left">Highlighted <br> projects</h2>
             <ul class="sans text-xl md:top-0 relative top-[7em]">
-                <li class="mb-20 lg:ml-[10em] relative md:max-w-[30em] max-w-[18em]">
-                    <div class="w-3/4">
+                <li class="mb-20 lg:ml-[10em] relative max-w-[30em] lg:grid grid-cols-6">
+                    <div class="unset col-span-5">
                         <h3 class="text-3xl serif">Portfolio</h3>
                         <p class="mb-5">My Portfolio website which I have probably worked the longest on as I thought it
                             would be fun to do this complicated design.</p>
                     </div>
                     <a href="https://github.com/lukboy223/Portfolio" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
+                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
                 </li>
-                <li class="mb-20 lg:mp-[3em] relative md:max-w-[30em]">
-                    <div class="w-3/4">
+                <li class="mb-20 lg:mp-[3em] relative max-w-[30em] lg:grid grid-cols-6">
+                    <div class="unset col-span-5">
                         <h3 class="text-3xl serif">MeTransfer</h3>
                         <p class="mb-5">A website I made together with another intern at my internship. The site is an
                             file transfer application similar to WetTransfer.</p>
                     </div>
                     <a href="https://metransfer.nl" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:absolute bottom-0 right-0">View</a>
+                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
                 </li>
             </ul>
         </div>
@@ -228,7 +228,7 @@ const formatDate = (dateString) => {
         </div>
     </div>
     <div id="project list"
-        class="absolute top-[113em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
+        class="absolute top-[105em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
         <div class="mb-10 lg:mr-[3em] xl:mr-[5em] 3xl:mr-[20em] text-right">
             <h2 class="serif text-5xl leading-8 ">All projects
                 <br><span class="text-xl">Including school
@@ -280,14 +280,14 @@ const formatDate = (dateString) => {
             lg:ml-[7em]">Contact</h3>
         <ul class="text-white text-2xl sans">
             <li class="mb-15
-                md:ml-[10em] w-fit
+                lg:ml-[10em] w-fit
                 " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
                     class="underline">E-mail</a>
                 <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
                 </div>
             </li>
             <li class="mb-15
-                md:ml-[5em]
+                lg:ml-[5em]
                 "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
                     class="underline">Linkedin</a></li>
             <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>

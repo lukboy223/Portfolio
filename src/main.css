@@ -20,7 +20,7 @@
   position: absolute;
   height: 400px;
   border-bottom: 3.5px solid #ca0130;
-  background: linear-gradient(0.75turn, #00b5a9 80%, #ffffff00 20%);
+  background: linear-gradient(0.75turn, #00b5a9 60%, #ffffff00 40%);
   top: -397px;
 }
 .lineBottom:before {
@@ -71,4 +71,24 @@
   width: 100em;
   left: -99.8em;
   background-color: #00b5a9;
+}
+
+.ButtonHover::before{
+  position: absolute;
+  content: '';
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+  height: calc(100% + 5px);
+  width: calc(100% + 5px);
+  background-color: #a00328;
+  display: block;
+}
+.ButtonHover:hover::before{
+  top: -5px;
+  left: -5px;
+}
+.ButtonHover:hover{
+  top: 5px;
+  left: 5px;
 }
