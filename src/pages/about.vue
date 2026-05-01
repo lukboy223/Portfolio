@@ -1,20 +1,27 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import redPanda from '@/components/redPanda.vue';
+import aboutSmall from '@/components/aboutSmall.vue';
+import ContactFooter from '@/components/ContactFooter.vue';
+import { transitionPhase } from '@/router';
 
 const title = ref('');
 const titleText = ref('About me');
-const email = ref('opacity-0')
 
-const showEmail = (movement) => {
-    if (movement == 'on') {
-        email.value = "opacity-100"
-    } else {
-        email.value = "opacity-0"
-    }
-}
+const waitForTransition = () => {
+    if (transitionPhase.value !== 'covering') return Promise.resolve();
+    return new Promise((resolve) => {
+        const stop = watch(transitionPhase, (phase) => {
+            if (phase !== 'covering') {
+                stop();
+                resolve();
+            }
+        });
+    });
+};
 
 onMounted(async () => {
+    await waitForTransition();
     const titleArray = titleText.value.split('');
 
     for (const titleLetter of titleArray) {
@@ -30,28 +37,27 @@ onMounted(async () => {
 
 const loopLetters = (targetLetter, isUppercase) => {
     return new Promise((resolve) => {
-        const loopLetters = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
         const startLength = title.value.length;
-        let currentIndex = 0;
+
+        if (targetLetter === ' ') {
+            title.value = title.value.substring(0, startLength) + ' ';
+            resolve();
+            return;
+        }
+
+        const steps = 5;
+        const targetCode = targetLetter.charCodeAt(0);
+        let currentCode = targetCode - steps;
 
         const interval = setInterval(() => {
-            if (currentIndex < loopLetters.length) {
-                if (loopLetters[currentIndex] === targetLetter) {
-                    if (isUppercase) {
-                        title.value = title.value.substring(0, startLength) + targetLetter.toUpperCase();
-                    } else {
-                        title.value = title.value.substring(0, startLength) + targetLetter;
-                    }
-                    clearInterval(interval);
-                    resolve(); // Signal completion
-                } else {
-                    title.value = title.value.substring(0, startLength) + loopLetters[currentIndex];
-                }
-                currentIndex++;
-            } else {
+            if (currentCode >= targetCode) {
+                const finalLetter = isUppercase ? targetLetter.toUpperCase() : targetLetter;
+                title.value = title.value.substring(0, startLength) + finalLetter;
                 clearInterval(interval);
-                resolve(); // Signal completion even if not found
+                resolve();
+            } else {
+                title.value = title.value.substring(0, startLength) + String.fromCharCode(currentCode);
+                currentCode++;
             }
         }, 30);
     });
@@ -70,9 +76,9 @@ const loopLetters = (targetLetter, isUppercase) => {
     <div id="contentBG" class="absolute w-full overflow-hidden top-40
          3xl:h-[205em] 2xl:h-[225em] xl:h-[210em] lg:h-[183em] md:h-[205em] h-[275em]">
         <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] -z-10
-            2xl:top-[60em] 2xl:left-[-17em] 
-            xl:top-[40em] xl:left-[-17em]
-            lg:top-[30em] lg:left-[-17em]
+            2xl:top-[60em] 
+            xl:top-[40em] 
+            lg:top-[30em] 
             top-[60em] left-[-17em]
             lg:block
             hidden
@@ -90,16 +96,7 @@ const loopLetters = (targetLetter, isUppercase) => {
         <div id="about small"
             class="right-0 absolute md:w-[30em] w-full top-[40em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[15em] 3xl:w-[40em] text-right text-white p-10">
             <h2 class="serif text-5xl mb-5 leading-6">In short</h2>
-            <p class="sans text-xl mb-5">Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/"
-                    class="underline" target="_blank">MBO
-                    Utrecht</a> learning to
-                become software
-                developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
-                    class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer. As
-                of
-                now I specialize in web development and like to challenge myself with difficult front-end designs and
-                complicated back-end problems.
-            </p>
+            <aboutSmall />
         </div>
         <div id="about big"
             class="absolute text-xl text-white sans lg:w-[40em] xl:w-[45em] p-10 top-[85em] md:top-[38em] md:w-[25em] lg:top-[36em] xl:top-[45em] xl:left-[10em] 2xl:top-[55em] 2xl:left-[32em] 3xl:top-[50em] 3xl:left-[27em]">
@@ -172,31 +169,13 @@ const loopLetters = (targetLetter, isUppercase) => {
     z-[-9]">
         <redPanda />
     </div>
-    <div id="footer contact" class="absolute ml-10 
-        top-[250em] 
-        md:top-[180em] 
+    <ContactFooter breakpoint="lg" class="absolute ml-10
+        top-[250em]
+        md:top-[180em]
         lg:top-[155em] lg:left-[10.5em]
         xl:top-[185em] xl:left-[9.5em]
         2xl:top-[205em] 2xl:left-[29.5em]
-        3xl:top-[185em] 3xl:left-[59em]
-        ">
-        <h3 class="serif text-white text-5xl mb-20
-            lg:ml-[7em]">Contact</h3>
-        <ul class="text-white text-2xl sans">
-            <li class="mb-15
-                lg:ml-[10em] w-fit
-                " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
-                    class="underline">E-mail</a>
-                <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
-                </div>
-            </li>
-            <li class="mb-15
-                lg:ml-[5em]
-                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
-                    class="underline">Linkedin</a></li>
-            <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>
-        </ul>
-    </div>
+        3xl:top-[185em] 3xl:left-[59em]" />
 
 </template>
 

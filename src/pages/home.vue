@@ -1,12 +1,27 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import redPanda from '@/components/redPanda.vue';
+import aboutSmall from '@/components/aboutSmall.vue';
+import ContactFooter from '@/components/ContactFooter.vue';
+import { transitionPhase } from '@/router';
 
 const title = ref('');
 const titleText = ref('Luka van Ekeren');
-const email = ref('opacity-0')
+
+const waitForTransition = () => {
+    if (transitionPhase.value !== 'covering') return Promise.resolve();
+    return new Promise((resolve) => {
+        const stop = watch(transitionPhase, (phase) => {
+            if (phase !== 'covering') {
+                stop();
+                resolve();
+            }
+        });
+    });
+};
 
 onMounted(async () => {
+    await waitForTransition();
     const titleArray = titleText.value.split('');
 
     for (const titleLetter of titleArray) {
@@ -22,45 +37,31 @@ onMounted(async () => {
 
 const loopLetters = (targetLetter, isUppercase) => {
     return new Promise((resolve) => {
-        const loopLetters = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
         const startLength = title.value.length;
-        let currentIndex = 0;
+
+        if (targetLetter === ' ') {
+            title.value = title.value.substring(0, startLength) + ' ';
+            resolve();
+            return;
+        }
+
+        const steps = 5;
+        const targetCode = targetLetter.charCodeAt(0);
+        let currentCode = targetCode - steps;
 
         const interval = setInterval(() => {
-            if (currentIndex < loopLetters.length) {
-                if (loopLetters[currentIndex] === targetLetter) {
-                    if (isUppercase) {
-                        title.value = title.value.substring(0, startLength) + targetLetter.toUpperCase();
-                    } else {
-                        title.value = title.value.substring(0, startLength) + targetLetter;
-                    }
-                    clearInterval(interval);
-                    resolve(); // Signal completion
-                } else {
-                    title.value = title.value.substring(0, startLength) + loopLetters[currentIndex];
-                }
-                currentIndex++;
-            } else {
+            if (currentCode >= targetCode) {
+                const finalLetter = isUppercase ? targetLetter.toUpperCase() : targetLetter;
+                title.value = title.value.substring(0, startLength) + finalLetter;
                 clearInterval(interval);
-                resolve(); // Signal completion even if not found
+                resolve();
+            } else {
+                title.value = title.value.substring(0, startLength) + String.fromCharCode(currentCode);
+                currentCode++;
             }
         }, 30);
     });
 }
-
-const showEmail = (movement) => {
-    if (movement == 'on') {
-        email.value = "opacity-100"
-    } else {
-        email.value = "opacity-0"
-    }
-}
-
-const buttonAnimation = (button) => {
-
-}
-
 
 </script>
 
@@ -77,9 +78,9 @@ const buttonAnimation = (button) => {
     <div id="contentBG" class="absolute w-full overflow-hidden top-40
     2xl:h-[170em] xl:h-[145em] lg:h-[120em] md:h-[130em] h-[180em]">
         <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] -z-10
-            2xl:top-[60em] 2xl:left-[-17em] 
-            xl:top-[40em] xl:left-[-17em]
-            lg:top-[30em] lg:left-[-17em]
+            2xl:top-[60em]
+            xl:top-[40em] 
+            lg:top-[30em] 
             top-[60em] left-[-17em] 
             " id="rotated blue block top (left)">
         </div>
@@ -89,8 +90,12 @@ const buttonAnimation = (button) => {
         </div>
         <div id="line" class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line z-[-7]
             top-[35em] md:left-[-120em] left-[-170em]
-            2xl:before:left-[175.9em] xl:before:left-[149.7em] lg:before:left-[132.3em] before:left-[131.4em]
-            3xl:before:left-[167.2em] before:w-[150em]">
+            2xl:before:left-[175.9em] 
+            xl:before:left-[149.7em] 
+            lg:before:left-[132.3em] 
+            before:left-[131.4em]
+            3xl:before:left-[167.2em] 
+            before:w-[150em]">
         </div>
         <div id="rotated red block bottom" class="absolute bg-[#CA0130] rotate-[-35deg] h-[100em] w-[120em] 
             3xl:left-[-15em]
@@ -123,27 +128,23 @@ const buttonAnimation = (button) => {
         <div class="w-full" id="title">
             <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">{{ title }}</h1>
         </div>
-        <div id="about"
-            class="right-0 absolute md:w-[30em] w-full top-[38em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[22em] 3xl:w-[40em] text-right text-white p-10">
+        <div id="about" class="right-0 absolute text-right text-white p-10 w-full 
+            top-[38em]
+            md:w-[30em] md:top-[25em] 
+            lg:top-[10em] 
+            xl:top-[20em] 
+            2xl:top-[35em] 
+            3xl:top-[22em] 3xl:w-[40em] ">
             <h2 class="serif text-5xl mb-5 leading-6">About me <br><span class="text-xl">in short</span></h2>
-            <p class="sans text-xl mb-5">
-                Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/" class="underline"
-                    target="_blank">MBO Utrecht</a> learning to become software
-                developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
-                    class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer.
-                As of now I specialize in web development and like to challenge myself with difficult front-end designs
-                and complicated back-end problems.
-            </p>
-            <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130] ButtonHover relative"
-                id="About-button">Read more</router-link>
+            <aboutSmall />
+            <router-link :to="{ name: 'About' }" class="px-4 py-2 view-button" id="About-button">Read more</router-link>
         </div>
         <div id="projects"
             class="absolute text-white left-0 p-10 lg:w-[55em] top-[80em] md:top-[50em] lg:top-[30em] xl:top-[45em] xl:left-[10em] 2xl:top-[60em] 2xl:left-[32em]">
             <h2 class="serif text-5xl mb-10 w-[5em] lg:ml-[8em]">Highlighted projects</h2>
             <ul class="sans text-xl">
                 <li class="mb-10 lg:ml-[19em] relative max-w-[30em]">
-                    <router-link :to="{ name: 'Projects' }"
-                        class="serif text-3xl px-4 py-2 bg-[#CA0130] ButtonHover relative">View all
+                    <router-link :to="{ name: 'Projects' }" class=" px-4 py-2 view-button">View all
                         projects</router-link>
                 </li>
                 <li class="mb-20 lg:ml-[10em] relative max-w-[30em] lg:grid grid-cols-6">
@@ -153,8 +154,7 @@ const buttonAnimation = (button) => {
                             thought it
                             would be fun to do this complicated design.</p>
                     </div>
-                    <a href="" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
+                    <a href="" target="_blank" class="px-6 py-2 h-min lg:mt-[2em] view-button">View</a>
                 </li>
                 <li class="mb-20 lg:mp-[3em] relative max-w-[30em] lg:grid grid-cols-6">
                     <div class="unset col-span-5">
@@ -164,7 +164,7 @@ const buttonAnimation = (button) => {
                             file transfer application similar to WetTransfer.</p>
                     </div>
                     <a href="https://metransfer.nl" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
+                        class="px-6 py-2 h-min lg:mt-[2em] view-button">View</a>
                 </li>
 
             </ul>
@@ -180,30 +180,12 @@ const buttonAnimation = (button) => {
 
             <redPanda />
         </div>
-        <div id="footer contact" class="absolute ml-10 
-        top-[142em] md:top-[101em] 
+        <ContactFooter breakpoint="md" class="absolute ml-10
+        top-[142em] md:top-[101em]
         lg:top-[80em] lg:left-[10.5em]
         xl:top-[100em] xl:left-[20.5em]
         2xl:top-[130em] 2xl:left-[30.5em]
-        3xl:left-[35.5em]
-        ">
-            <h3 class="serif text-white text-5xl mb-20
-            md:ml-[7em]">Contact</h3>
-            <ul class="text-white text-2xl sans">
-                <li class="mb-15
-                md:ml-[10em] w-fit
-                " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
-                        class="underline">E-mail</a>
-                    <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
-                    </div>
-                </li>
-                <li class="mb-15
-                md:ml-[5em]
-                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
-                        class="underline">Linkedin</a></li>
-                <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>
-            </ul>
-        </div>
+        3xl:left-[35.5em]" />
         <div id="footer credits" class="text-white serif m-1 absolute bottom-0 
         left-[16em] md:left-[35em] lg:left-[45em] xl:left-[58em] 2xl:left-[70em] 3xl:left-[75em]">
             Designed and engineered by Luka

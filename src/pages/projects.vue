@@ -1,7 +1,9 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import redPanda from '@/components/redPanda.vue';
+import ContactFooter from '@/components/ContactFooter.vue';
+import { transitionPhase } from '@/router';
 
 const projects = ref(null);
 const projectType = ref('Github');
@@ -14,17 +16,21 @@ const pButton = ref('opacity-0');
 const loading = ref(true)
 const title = ref('');
 const titleText = ref('Projects');
-const email = ref('opacity-0')
 
-const showEmail = (movement) => {
-    if (movement == 'on') {
-        email.value = "opacity-100"
-    } else {
-        email.value = "opacity-0"
-    }
-}
+const waitForTransition = () => {
+    if (transitionPhase.value !== 'covering') return Promise.resolve();
+    return new Promise((resolve) => {
+        const stop = watch(transitionPhase, (phase) => {
+            if (phase !== 'covering') {
+                stop();
+                resolve();
+            }
+        });
+    });
+};
 
 onMounted(async () => {
+    await waitForTransition();
     const titleArray = titleText.value.split('');
 
     for (const titleLetter of titleArray) {
@@ -40,28 +46,27 @@ onMounted(async () => {
 
 const loopLetters = (targetLetter, isUppercase) => {
     return new Promise((resolve) => {
-        const loopLetters = [' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
         const startLength = title.value.length;
-        let currentIndex = 0;
+
+        if (targetLetter === ' ') {
+            title.value = title.value.substring(0, startLength) + ' ';
+            resolve();
+            return;
+        }
+
+        const steps = 5;
+        const targetCode = targetLetter.charCodeAt(0);
+        let currentCode = targetCode - steps;
 
         const interval = setInterval(() => {
-            if (currentIndex < loopLetters.length) {
-                if (loopLetters[currentIndex] === targetLetter) {
-                    if (isUppercase) {
-                        title.value = title.value.substring(0, startLength) + targetLetter.toUpperCase();
-                    } else {
-                        title.value = title.value.substring(0, startLength) + targetLetter;
-                    }
-                    clearInterval(interval);
-                    resolve(); // Signal completion
-                } else {
-                    title.value = title.value.substring(0, startLength) + loopLetters[currentIndex];
-                }
-                currentIndex++;
-            } else {
+            if (currentCode >= targetCode) {
+                const finalLetter = isUppercase ? targetLetter.toUpperCase() : targetLetter;
+                title.value = title.value.substring(0, startLength) + finalLetter;
                 clearInterval(interval);
-                resolve(); // Signal completion even if not found
+                resolve();
+            } else {
+                title.value = title.value.substring(0, startLength) + String.fromCharCode(currentCode);
+                currentCode++;
             }
         }, 30);
     });
@@ -161,9 +166,9 @@ const formatDate = (dateString) => {
     <div id="contentBG" class="absolute w-full overflow-hidden top-40
          3xl:h-[260em] 2xl:h-[285em] lg:h-[250em] h-[295em]">
         <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] -z-10
-            2xl:top-[60em] 2xl:left-[-17em] 
-            xl:top-[40em] xl:left-[-17em]
-            lg:top-[30em] lg:left-[-17em]
+            2xl:top-[60em] 
+            xl:top-[40em] 
+            lg:top-[30em] 
             top-[60em] left-[-17em]
             lg:block
             hidden
@@ -189,7 +194,7 @@ const formatDate = (dateString) => {
                             would be fun to do this complicated design.</p>
                     </div>
                     <a href="https://github.com/lukboy223/Portfolio" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
+                        class=" px-6 py-2 h-min lg:mt-[2em] view-button">View</a>
                 </li>
                 <li class="mb-20 lg:mp-[3em] relative max-w-[30em] lg:grid grid-cols-6">
                     <div class="unset col-span-5">
@@ -198,7 +203,7 @@ const formatDate = (dateString) => {
                             file transfer application similar to WetTransfer.</p>
                     </div>
                     <a href="https://metransfer.nl" target="_blank"
-                        class="serif text-3xl px-6 py-2 bg-[#CA0130] h-min lg:mt-[2em] ButtonHover relative col-span-1">View</a>
+                        class="px-6 py-2  h-min lg:mt-[2em] view-button">View</a>
                 </li>
             </ul>
         </div>
@@ -269,30 +274,12 @@ const formatDate = (dateString) => {
     z-[-9]">
         <redPanda />
     </div>
-    <div id="footer contact" class="absolute ml-10 
-        top-[270em] 
+    <ContactFooter breakpoint="lg" class="absolute ml-10
+        top-[270em]
         lg:top-[215em] lg:left-[10.5em]
         xl:top-[228em] xl:left-[9.5em]
         2xl:top-[258em] 2xl:left-[29.5em]
-        3xl:top-[238em] 3xl:left-[59em]
-        ">
-        <h3 class="serif text-white text-5xl mb-20
-            lg:ml-[7em]">Contact</h3>
-        <ul class="text-white text-2xl sans">
-            <li class="mb-15
-                lg:ml-[10em] w-fit
-                " v-on:mouseover="showEmail('on')" v-on:mouseleave="showEmail('off')"> <a href=" mailto:mail@mail.com"
-                    class="underline">E-mail</a>
-                <div class="text-base absolute duration-200" :class="email">ltvanekeren@gmail.com
-                </div>
-            </li>
-            <li class="mb-15
-                lg:ml-[5em]
-                "><a href="https://www.linkedin.com/in/luka-van-ekeren-b270a3321/" target="_blank"
-                    class="underline">Linkedin</a></li>
-            <li><a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a></li>
-        </ul>
-    </div>
+        3xl:top-[238em] 3xl:left-[59em]" />
 
 </template>
 
