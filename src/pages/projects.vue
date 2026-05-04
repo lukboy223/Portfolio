@@ -89,7 +89,7 @@ const fetchProjectsGithub = async () => {
 
 const fetchProjectsFile = () => {
     loading.value = true
-    axios.get('http://ltve.eu/projects.json')
+    axios.get('https://ltve.eu/projects.json')
         .then(Response => {
             projects.value = Response.data;
             loading.value = false
