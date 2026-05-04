@@ -31,4 +31,4 @@ jobs:
           server: ${{ secrets.SFTP_HOST }}
           password: ${{ secrets.SFTP_PASSWORD }}
           local_path: './dist/*'
-          remote_path: '/home/www'
+          remote_path: '/home/www/'
