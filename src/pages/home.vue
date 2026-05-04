@@ -1,61 +1,195 @@
 <script setup>
+import { onMounted, ref, watch } from 'vue';
+import redPanda from '@/components/redPanda.vue';
+import aboutSmall from '@/components/aboutSmall.vue';
+import ContactFooter from '@/components/ContactFooter.vue';
+import { transitionPhase } from '@/router';
+
+const title = ref('');
+const titleText = ref('Luka van Ekeren');
+
+const waitForTransition = () => {
+    if (transitionPhase.value !== 'covering') return Promise.resolve();
+    return new Promise((resolve) => {
+        const stop = watch(transitionPhase, (phase) => {
+            if (phase !== 'covering') {
+                stop();
+                resolve();
+            }
+        });
+    });
+};
+
+onMounted(async () => {
+    await waitForTransition();
+    const titleArray = titleText.value.split('');
+
+    for (const titleLetter of titleArray) {
+        let isUppercase = false;
+        if (titleLetter == titleLetter.toUpperCase()) {
+            isUppercase = true;
+        }
+
+        await loopLetters(titleLetter.toLowerCase(), isUppercase);
+        await new Promise(resolve => setTimeout(resolve, 10)); // Delay between letters
+    }
+});
+
+const loopLetters = (targetLetter, isUppercase) => {
+    return new Promise((resolve) => {
+        const startLength = title.value.length;
+
+        if (targetLetter === ' ') {
+            title.value = title.value.substring(0, startLength) + ' ';
+            resolve();
+            return;
+        }
+
+        const steps = 5;
+        const targetCode = targetLetter.charCodeAt(0);
+        let currentCode = targetCode - steps;
+
+        const interval = setInterval(() => {
+            if (currentCode >= targetCode) {
+                const finalLetter = isUppercase ? targetLetter.toUpperCase() : targetLetter;
+                title.value = title.value.substring(0, startLength) + finalLetter;
+                clearInterval(interval);
+                resolve();
+            } else {
+                title.value = title.value.substring(0, startLength) + String.fromCharCode(currentCode);
+                currentCode++;
+            }
+        }, 30);
+    });
+}
 
 </script>
 
 <template>
-    <div id="contentBG" class="absolute h-full w-full -z-10">
-        <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] 
-        2xl:top-[60em] 2xl:left-[-17em] 
-        xl:top-[40em] xl:left-[-17em]
-        lg:top-[30em] lg:left-[-17em]
-        top-[60em] left-[-17em] 
-        " id="rotated blue block top (left)">
+
+
+    <div class="overflow-hidden h-[120em] relative xl:top-[10em] top-0 3xl:top-0  w-full">
+
+        <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[250em] left-[-15em] z-[-9] 
+        2xl:top-[30em] xl:top-0 top-[-10em] lineBlock
+        before:left-[24.3em]" id="rotated blue block top (right)">
         </div>
-        <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[100em] w-[250em] left-[-15em] 
-            2xl:top-[30em] xl:top-0 top-[-20em] lineBlock
-            before:left-[24.3em]" id="rotated blue block top (right)">
+    </div>
+    <div id="contentBG" class="absolute w-full overflow-hidden top-40
+    2xl:h-[170em] xl:h-[145em] lg:h-[120em] md:h-[130em] h-[180em]">
+        <div class="absolute bg-[#00B5A9] rotate-35 h-[40em] w-[45em] -z-10
+            2xl:top-[60em]
+            xl:top-[40em] 
+            lg:top-[30em] 
+            top-[60em] left-[-17em] 
+            " id="rotated blue block top (left)">
         </div>
-        <div class="absolute bg-[#00B5A9] w-full h-[150em] right-0 
+
+        <div class="absolute bg-[#00B5A9] w-full md:h-[100em] h-[150em] right-0 -z-10
         xl:top-[100em] lg:top-[90em] md:top-[70em] top-[50em]" id="blue block bottom">
         </div>
-        <div class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line 
+        <div id="line" class="absolute w-[250em] rotate-35 h-[3px] lg:top-[20em] lg:left-[-100em] bg-[#00B5A9] line z-[-7]
             top-[35em] md:left-[-120em] left-[-170em]
-            2xl:before:left-[175.9em] xl:before:left-[149.7em] lg:before:left-[132.3em] before:left-[131.4em]"
-            id="line">
+            2xl:before:left-[175.9em] 
+            xl:before:left-[149.7em] 
+            lg:before:left-[132.3em] 
+            before:left-[131.4em]
+            3xl:before:left-[167.2em] 
+            before:w-[150em]">
+        </div>
+        <div id="rotated red block bottom" class="absolute bg-[#CA0130] rotate-[-35deg] h-[100em] w-[120em] 
+            3xl:left-[-15em]
+            2xl:left-[-20em] 2xl:top-[150em] 2xl:before:h-[920px] 2xl:before:top-[-919.5px]
+            xl:top-[120em] xl:left-[-30em] xl:before:h-[820px] xl:before:top-[-819.5px]
+            lg:top-[100em] lg:left-[-40em] before:h-[660px] before:top-[-659.5px]
+            md:top-[120em] md:left-[-50em] 
+            top-[160em] left-[-70em] 
+            lineBlockBottom z-[-8]">
+        </div>
+        <div class="h-[3px] w-[250em] bg-[#CA0130] absolute rotate-[-35deg] z-10
+        3xl:top-[1465px]
+        2xl:top-[1410px]
+        xl:top-[820px]
+        lg:top-[388px]
+        md:top-[595px]
+        top-[1012px]
+        " id="rotated red block bottom line" style="left: calc(-110em + 119em * cos(-35deg));">
+        </div>
+        <div id="line bottom" class="absolute w-[100em] rotate-[-35deg] h-[3px] bg-[#00B5A9] z-[-7]
+            3xl:left-[45em] 
+            2xl:top-[150em] 2xl:left-[40em] 
+            xl:top-[120em] xl:left-[30em] 
+            lg:top-[95em] lg:left-[16.5em] 
+            md:top-[110em] md:left-[3em] 
+            top-[160em] left-[-10em] 
+            lineBottom before:left-[40.4em]">
         </div>
 
+        <div class="w-full" id="title">
+            <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">{{ title }}</h1>
+        </div>
+        <div id="about" class="right-0 absolute text-right text-white p-10 w-full 
+            top-[38em]
+            md:w-[30em] md:top-[25em] 
+            lg:top-[10em] 
+            xl:top-[20em] 
+            2xl:top-[35em] 
+            3xl:top-[22em] 3xl:w-[40em] ">
+            <h2 class="serif text-5xl mb-5 leading-6">About me <br><span class="text-xl">in short</span></h2>
+            <aboutSmall />
+            <router-link :to="{ name: 'About' }" class="px-4 py-2 view-button" id="About-button">Read more</router-link>
+        </div>
+        <div id="projects"
+            class="absolute text-white left-0 p-10 lg:w-[55em] top-[80em] md:top-[50em] lg:top-[30em] xl:top-[45em] xl:left-[10em] 2xl:top-[60em] 2xl:left-[32em]">
+            <h2 class="serif text-5xl mb-10 w-[5em] lg:ml-[8em]">Highlighted projects</h2>
+            <ul class="sans text-xl">
+                <li class="mb-10 lg:ml-[19em] relative max-w-[30em]">
+                    <router-link :to="{ name: 'Projects' }" class=" px-4 py-2 view-button">View all
+                        projects</router-link>
+                </li>
+                <li class="mb-20 lg:ml-[10em] relative max-w-[30em] lg:grid grid-cols-6">
+                    <div class="unset col-span-5">
+                        <h3 class="text-3xl serif">Portfolio</h3>
+                        <p class="mb-5">My Portfolio website which I have probably worked the longest on as I
+                            thought it
+                            would be fun to do this complicated design.</p>
+                    </div>
+                    <a href="" target="_blank" class="px-6 py-2 h-min lg:mt-[2em] view-button">View</a>
+                </li>
+                <li class="mb-20 lg:mp-[3em] relative max-w-[30em] lg:grid grid-cols-6">
+                    <div class="unset col-span-5">
+                        <h3 class="text-3xl serif">MeTransfer</h3>
+                        <p class="mb-5">A website I made together with another intern at my internship. The site is
+                            an
+                            file transfer application similar to WetTransfer.</p>
+                    </div>
+                    <a href="https://metransfer.nl" target="_blank"
+                        class="px-6 py-2 h-min lg:mt-[2em] view-button">View</a>
+                </li>
 
+            </ul>
+        </div>
+        <div id="symbol art" class="mono w-[1435px] absolute text-[#CA0130] font-black 
+    3xl:top-[104em] 3xl:right-0 
+    2xl:top-[104em] 2xl:right-[-20em] 
+    xl:top-[82em] xl:right-[-25.2em] 
+    lg:top-[65em] lg:right-[-25em] 
+    md:top-[85em] md:right-[-25em] 
+    top-[135em] right-[-25em] 
+    z-[-9]">
 
-    </div>
-    <div class="w-full" id="title">
-        <h1 class="serif text-white text-6xl w-[1em] m-auto leading-20">Luka van Ekeren</h1>
-    </div>
-    <div id="about"
-        class="right-0 absolute md:w-[30em] w-full top-[38em] md:top-[25em] lg:top-[10em] xl:top-[20em] 2xl:top-[35em] 3xl:top-[22em] 3xl:w-[40em] text-right text-white p-10">
-        <h2 class="serif text-5xl mb-5 leading-6">About me <br><span class="text-xl">in short</span></h2>
-        <p class="sans text-xl mb-5">Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/"
-                class="underline" target="_blank">MBO
-                Utrecht</a> learning to
-            become software
-            developer. For my study I am currently doing an internship at <a href="https://depositado.com/"
-                class="underline" target="_blank">Depositado</a> to gain experience in the field as a developer. As of
-            now I specialize in web development and like to challenge myself with difficult front-end designs and
-            complicated back-end problems.
-        </p>
-        <router-link :to="{ name: 'About' }" class="serif text-3xl px-4 py-2 bg-[#CA0130]">Read more</router-link>
-    </div>
-    <div id="projects" class="absolute text-white top-[80em] left-0 p-10">
-        <h2 class="serif text-5xl mb-10 w-[5em]">Highlighted projects</h2>
-        <ul>
-            <li>
-                <h3 class="text-3xl serif">Project name</h3>
-                <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste dolorum magni, soluta
-                    velit suscipit
-                    porro sint aliquam ad sunt facilis placeat quo, sapiente impedit illo unde, sit voluptate obcaecati
-                    quae!</p>
-                <a href="" target="_blank" class="serif text-3xl px-6 py-2 bg-[#CA0130]">View</a>
-            </li>
-        </ul>
+            <redPanda />
+        </div>
+        <ContactFooter breakpoint="md" class="absolute ml-10
+        top-[142em] md:top-[101em]
+        lg:top-[80em] lg:left-[10.5em]
+        xl:top-[100em] xl:left-[20.5em]
+        2xl:top-[130em] 2xl:left-[30.5em]
+        3xl:left-[35.5em]" />
+        <div id="footer credits" class="text-white serif m-1 absolute bottom-0 
+        left-[16em] md:left-[35em] lg:left-[45em] xl:left-[58em] 2xl:left-[70em] 3xl:left-[75em]">
+            Designed and engineered by Luka
+        </div>
     </div>
 </template>
 
