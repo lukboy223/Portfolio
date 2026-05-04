@@ -1,5 +1,4 @@
 # Portfolio website
 
-This is my portfolio website
-
-It is still in development, but it is coming online soon!
+This is my portfolio website completely designed and build by me
+(95% by hand without AI)
