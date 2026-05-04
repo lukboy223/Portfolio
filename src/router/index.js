@@ -32,6 +32,10 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
+  // Block any new navigation while a transition is still running
+  if (from.name && transitionPhase.value !== 'idle') {
+    return false
+  }
   if (from.name && to.name !== from.name) {
     transitionPhase.value = 'covering'
     await new Promise((r) => setTimeout(r, TRANSITION_MS))
