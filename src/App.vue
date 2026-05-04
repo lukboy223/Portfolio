@@ -19,7 +19,7 @@ import PageTransition from '@/components/PageTransition.vue';
     </nav>
   </header>
   <main id="app" class="relative">
-    <div class="relative w-full min-h-screen max-w-[2490px] ">
+    <div class="relative min-h-screen w-screen max-w-[2490px] ">
       <router-view />
     </div>
     <div id="margin area"
