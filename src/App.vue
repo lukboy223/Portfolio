@@ -5,7 +5,7 @@ import PageTransition from '@/components/PageTransition.vue';
 <template>
   <header id="nav" class="w-full">
     <nav class="md:w-1/2 w-full md:ml-[10em] md:max-w-[1245px] absolute">
-      <ul class="flex justify-between text-white serif text-3xl m-5">
+      <ul class="flex justify-between text-white serif md:text-3xl m-5 text-2xl">
         <li class="relative z-10 ease-out duration-300 px-4">
           <router-link :to="{ name: 'Home' }" class="">Home</router-link>
         </li>
