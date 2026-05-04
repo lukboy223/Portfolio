@@ -32,7 +32,7 @@ const isLg = props.breakpoint === 'lg';
                     class="underline">Linkedin</a>
             </li>
             <li>
-                <a href="https://github.com/lukboy23" target="_blank" class="underline">Github</a>
+                <a href="https://github.com/lukboy223" target="_blank" class="underline">Github</a>
             </li>
         </ul>
     </div>
