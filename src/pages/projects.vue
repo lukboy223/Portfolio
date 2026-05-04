@@ -236,7 +236,7 @@ const formatDate = (dateString) => {
             </div>
         </div>
         <div id="project list"
-            class="absolute top-[105em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
+            class="absolute top-[110em] lg:top-[90em] xl:top-[110em] 2xl:top-[130em] 3xl:top-[110em] text-white sans p-5 w-full">
             <div class="mb-10 lg:mr-[3em] xl:mr-[5em] 3xl:mr-[20em] text-right">
                 <h2 class="serif text-5xl leading-8 ">All projects
                     <br><span class="text-xl">Including school
