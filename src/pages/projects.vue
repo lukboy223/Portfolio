@@ -155,7 +155,8 @@ const formatDate = (dateString) => {
 </script>
 
 <template>
-    <div class="overflow-hidden relative w-full 3xl:h-[260em] 2xl:h-[285em] lg:h-[250em] h-[295em]">
+    <div class="overflow-hidden relative w-full 3xl:h-[270em] 2xl:h-[295em] lg:h-[260em] h-[305em]">
+
         <div class="overflow-hidden h-[160em] absolute xl:top-[10em] top-0 3xl:top-0  w-full">
             <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[50em] w-[300em] left-[-45em] z-[-9] 
         2xl:top-[28em] xl:top-[-2em] top-[-12em] lineBlock

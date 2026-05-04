@@ -66,7 +66,7 @@ const loopLetters = (targetLetter, isUppercase) => {
 
 <template>
     <div
-        class="overflow-hidden w-full  3xl:h-[205em] 2xl:h-[225em] xl:h-[210em] lg:h-[183em] md:h-[205em] h-[275em] relative">
+        class="overflow-hidden w-full  3xl:h-[215em] 2xl:h-[235em] xl:h-[220em] lg:h-[193em] md:h-[215em] h-[285em] relative">
 
         <div class="overflow-hidden h-[160em] absolute xl:top-[10em] top-0 3xl:top-0  w-full">
             <div class="absolute bg-[#00B5A9] rotate-[-35deg] h-[50em] w-[300em] left-[-45em] z-[-9] 
