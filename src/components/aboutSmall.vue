@@ -1,5 +1,5 @@
 <template>
-    <p class="sans text-xl mb-5">Hi! I am Luka, currently I am student at <a href="https://mboutrecht.nl/"
+    <p class="sans text-xl mb-5">Hi! I am Luka, currently I am a student at <a href="https://mboutrecht.nl/"
             class="underline" target="_blank">MBO
             Utrecht</a> learning to
         become software
